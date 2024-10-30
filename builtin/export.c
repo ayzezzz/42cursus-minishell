@@ -6,7 +6,11 @@
 /*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:47:05 by zayaz             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/29 20:38:38 by itulgar          ###   ########.fr       */
+=======
+/*   Updated: 2024/10/26 19:53:14 by itulgar          ###   ########.fr       */
+>>>>>>> 7ba66fc41fd5f7ef1db2ee4c8d18837c7f952e31
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +73,11 @@ static void	export_run(t_program *program, char **cmd, int i)
 		{
 			printf("export: `%s':not a valid identifier\n", cmd[i]);
 			free(equ_key);
+<<<<<<< HEAD
 			return ;
+=======
+			return;
+>>>>>>> 7ba66fc41fd5f7ef1db2ee4c8d18837c7f952e31
 		}
 		else if (ft_strchr(cmd[i], 61) != 0)
 			equal_in_export(program, cmd, &i);

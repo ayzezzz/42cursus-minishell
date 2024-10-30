@@ -6,7 +6,11 @@
 /*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 17:36:01 by itulgar           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/29 18:16:17 by itulgar          ###   ########.fr       */
+=======
+/*   Updated: 2024/10/27 17:51:12 by itulgar          ###   ########.fr       */
+>>>>>>> 7ba66fc41fd5f7ef1db2ee4c8d18837c7f952e31
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +59,8 @@ void	echo(char **cmd)
 	}
 	if (!flag)
 		printf("\n");
+<<<<<<< HEAD
+=======
+	//exit(0);
+>>>>>>> 7ba66fc41fd5f7ef1db2ee4c8d18837c7f952e31
 }

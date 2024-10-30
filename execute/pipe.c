@@ -6,12 +6,17 @@
 /*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:02:45 by itulgar           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/29 19:52:29 by itulgar          ###   ########.fr       */
+=======
+/*   Updated: 2024/10/27 20:36:45 by itulgar          ###   ########.fr       */
+>>>>>>> 7ba66fc41fd5f7ef1db2ee4c8d18837c7f952e31
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+<<<<<<< HEAD
 // 1  out yazma terminalden veriir
 // 0 input   okuma terminalden alıe
 // cat main.c | echo a | efj
@@ -55,4 +60,22 @@ void	pipe_dup(t_program *program, int *i)
 		close(program->process[a].fd[1]);
 		a++;
 	}
+=======
+// 1  out yazma
+// 0 input   okuma
+// cat main.c | echo a | efj
+void	pipe_dup(t_program *program, int *i)
+{
+	if (*i == 0)
+		dup2(program->process[*i].fd[1], STDOUT_FILENO);
+	else if (program->cmd[*i] && program->cmd[(*i) + 1] == NULL)
+		dup2(program->process[*i].fd[0], STDIN_FILENO);
+	else
+	{
+		dup2(program->process[*i].fd[1], STDOUT_FILENO);
+		dup2(program->process[(*i) -1 ].fd[0], STDIN_FILENO);
+	}
+	close(program->process[*i].fd[0]);
+	close(program->process[*i].fd[1]);
+>>>>>>> 7ba66fc41fd5f7ef1db2ee4c8d18837c7f952e31
 }

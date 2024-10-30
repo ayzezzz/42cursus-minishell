@@ -6,7 +6,11 @@
 /*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 18:20:33 by zayaz             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/29 17:27:19 by itulgar          ###   ########.fr       */
+=======
+/*   Updated: 2024/10/27 20:34:14 by itulgar          ###   ########.fr       */
+>>>>>>> 7ba66fc41fd5f7ef1db2ee4c8d18837c7f952e31
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +48,7 @@ int zi_strcmp(const char *s1, const char *s2)
 		i++;
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
+<<<<<<< HEAD
 
 int built_strcmp(const char *s1, const char *s2, size_t dest_size)
 {
@@ -69,6 +74,18 @@ static void parent_heredoc(t_process hd_process)
 void heredoc(t_program *program,char *s)
 {
 (void)program;
+=======
+static void parent_heredoc(t_process hd_process)
+{
+	global_signal = IN_PARENT;
+	waitpid(hd_process.pid, NULL, 0);
+	close(hd_process.fd[0]);
+	close(hd_process.fd[1]);
+}
+void heredoc(char *s)
+{
+
+>>>>>>> 7ba66fc41fd5f7ef1db2ee4c8d18837c7f952e31
 	char *line;
 	t_process hd_process;
 	char *dst;
@@ -94,10 +111,17 @@ void heredoc(t_program *program,char *s)
 			line = readline(">");
 			if (!line)
 				break;
+<<<<<<< HEAD
 
 			if (zi_strcmp(st, line) == 0)
 			{
 
+=======
+	
+			if (zi_strcmp(st, line) == 0)
+			{
+				
+>>>>>>> 7ba66fc41fd5f7ef1db2ee4c8d18837c7f952e31
 				close(hd_process.fd[1]);
 				free(line);
 				break;
@@ -115,11 +139,17 @@ void heredoc(t_program *program,char *s)
 		parent_heredoc(hd_process);
 }
 
-void heredoc_run(t_program *program)
+void	heredoc_run(t_program *program)
 {
+<<<<<<< HEAD
 	int j;
 	int z;
 	int i;
+=======
+	int	j;
+	int	z;
+	int	i;
+>>>>>>> 7ba66fc41fd5f7ef1db2ee4c8d18837c7f952e31
 
 	i = 0;
 	program->redi_type = '\0';
@@ -128,7 +158,12 @@ void heredoc_run(t_program *program)
 	while (program->parser_input[i])
 	{
 		j = 0;
+<<<<<<< HEAD
 		while (program->parser_input[i][j] != NULL && program->parser_input[i][j]->cmd)
+=======
+		while (program->parser_input[i][j] != NULL
+			&& program->parser_input[i][j]->cmd)
+>>>>>>> 7ba66fc41fd5f7ef1db2ee4c8d18837c7f952e31
 		{
 			z = 0;
 			while (program->parser_input[i][j]->cmd[z])
@@ -137,13 +172,25 @@ void heredoc_run(t_program *program)
 				if (program->parser_input[i][j]->cmd[z] == '<')
 				{
 					program->redi_type = program->parser_input[i][j]->cmd[z];
+<<<<<<< HEAD
 					if (program->parser_input[i][j]->cmd[z] == '<' && (program->parser_input[i][j]->cmd[z + 1] && program->parser_input[i][j]->cmd[z + 1] == '<'))
+=======
+					if (program->parser_input[i][j]->cmd[z] == '<'
+						&& (program->parser_input[i][j]->cmd[z + 1]
+							&& program->parser_input[i][j]->cmd[z + 1] == '<'))
+>>>>>>> 7ba66fc41fd5f7ef1db2ee4c8d18837c7f952e31
 					{
 						z++;
 						load_redi(program, heredoc, &i, &j, &z);
 					}
 				}
+<<<<<<< HEAD
 				if (program->parser_input[i][j]->cmd[z] && program->parser_input[i][j]->cmd[z] != '\'' && program->parser_input[i][j]->cmd[z] != '\"')
+=======
+				if (program->parser_input[i][j]->cmd[z]
+					&& program->parser_input[i][j]->cmd[z] != '\''
+					&& program->parser_input[i][j]->cmd[z] != '\"')
+>>>>>>> 7ba66fc41fd5f7ef1db2ee4c8d18837c7f952e31
 					z++;
 			}
 			j++;

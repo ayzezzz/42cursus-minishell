@@ -6,7 +6,11 @@
 /*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:53:16 by zayaz             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/29 19:34:58 by itulgar          ###   ########.fr       */
+=======
+/*   Updated: 2024/10/27 19:54:42 by itulgar          ###   ########.fr       */
+>>>>>>> 7ba66fc41fd5f7ef1db2ee4c8d18837c7f952e31
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +69,7 @@ void	load_redi(t_program *program, void run_redirect(t_program *, char *),
 		int *i, int *j, int *z)
 {
 	int		start;
+<<<<<<< HEAD
 	char	*doc;
 	char	*clean_doc;
 
@@ -72,6 +77,15 @@ void	load_redi(t_program *program, void run_redirect(t_program *, char *),
 	clean_doc = NULL;
 	start = 0;
 	// size = 0;
+=======
+	int		size;
+	char	*doc;
+	char	*clean_doc;
+
+	clean_doc = NULL;
+	start = 0;
+	size = 0;
+>>>>>>> 7ba66fc41fd5f7ef1db2ee4c8d18837c7f952e31
 	doc = NULL;
 	if (program->parser_input[*i][*j]->cmd[*z])
 	{
@@ -90,10 +104,14 @@ void	load_redi(t_program *program, void run_redirect(t_program *, char *),
 	if (doc != NULL)
 	{
 		clean_doc = del_quote(clean_doc, doc, ft_strlen(doc));
+<<<<<<< HEAD
 		if (program->fd_input > 2)
 			close(program->fd_input);
 		if (program->fd_output > 2)
 			close(program->fd_output);
+=======
+		// printf("clean_doc:%s\n", clean_doc);
+>>>>>>> 7ba66fc41fd5f7ef1db2ee4c8d18837c7f952e31
 		run_redirect(program, clean_doc);
 		free(clean_doc);
 		free(doc);

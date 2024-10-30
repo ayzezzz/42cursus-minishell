@@ -6,7 +6,11 @@
 /*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:33:29 by itulgar           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/28 12:15:36 by itulgar          ###   ########.fr       */
+=======
+/*   Updated: 2024/10/27 16:11:57 by itulgar          ###   ########.fr       */
+>>>>>>> 7ba66fc41fd5f7ef1db2ee4c8d18837c7f952e31
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +38,15 @@ void	fill_env_cmd(t_program *program)
 		i++;
 	}
 	program->env_cmd[i] = NULL;
+<<<<<<< HEAD
+=======
+	// i = 0;
+	// while (program->env_cmd[i])
+	// {
+	//  printf("%s\n", program->env_cmd[i]);
+	//  i++;
+	// }
+>>>>>>> 7ba66fc41fd5f7ef1db2ee4c8d18837c7f952e31
 }
 
 void	find_path(t_program *program)
