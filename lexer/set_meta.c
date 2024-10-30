@@ -81,7 +81,7 @@ static int	set_redirect(char *meta)
 		}
 		i++;
 	}
-	return (412);
+	return (8);
 }
 
 int	set_meta(t_program *program, char *meta)

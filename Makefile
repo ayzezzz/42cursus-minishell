@@ -19,12 +19,19 @@ SRCS= main.c\
 	  builtin/cd.c\
 	  builtin/pwd.c\
 	  builtin/env.c\
+	  builtin/export_util.c\
 	  builtin/export.c\
 	  builtin/zi_unset.c\
+	  builtin/builtin.c\
 	  execute/exec.c\
 	  execute/redirect.c\
 	  execute/exec_util.c\
 	  execute/heredoc.c\
+	  execute/cmd.c\
+	  execute/run_redirect.c\
+	  execute/exec_variable.c\
+	  execute/pipe.c\
+
 
 OBJS= $(SRCS:.c=.o)
 CC= gcc

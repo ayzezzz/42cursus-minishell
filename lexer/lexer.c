@@ -75,11 +75,11 @@ void	quote_clean(t_program *program)
 		{
 			if (ft_strchr(program->parser_input[i][j]->cmd, 36))
 				dolar_handler(program, program->parser_input[i][j]);
-			if (program->parser_input[i][j]->key != 7)
+			if (program->parser_input[i][j]->key != 7 &&  program->parser_input[i][j]->key != 8)
 				zi_striteri(program->parser_input[i][j], f);
-			// printf("cmd:%d: arg:%d:%s  key:%d\n", i, j,
-			// 	program->parser_input[i][j]->cmd,
-			// 	program->parser_input[i][j]->key);
+			//  printf("cmd:%d: arg:%d:%s  key:%d\n", i, j,
+			//  	program->parser_input[i][j]->cmd,
+			//  	program->parser_input[i][j]->key);
 			j++;
 		}
 		i++;

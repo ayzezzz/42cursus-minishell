@@ -2,20 +2,24 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
+/*                                                    +:+ +:+
+	+:+     */
+/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+
+	+#+        */
+/*                                                +#+#+#+#+#+
+	+#+           */
 /*   Created: 2024/09/07 16:50:25 by itulgar           #+#    #+#             */
-/*   Updated: 2024/10/11 18:49:58 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/10/20 13:06:00 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+
 int	main(int argc, char **argv, char **envp)
 {
-	t_program	*program;
-	char		*tmp;
+	t_program *program;
+	char *tmp;
 
 	program = NULL;
 	(void)argv;
@@ -25,6 +29,7 @@ int	main(int argc, char **argv, char **envp)
 	ft_init_program(program, envp);
 	while (1)
 	{
+		global_signal = 0;
 		program->input = readline("minishell 🐥>");
 		tmp = ft_strtrim(program->input, " ");
 		free(program->input);
@@ -45,10 +50,14 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (!ft_parser(program, program->input))
 			break ;
+		if (heredoc_count(program) > 0)
+			heredoc_run(program);
+
+		// exit(0);
 		zi_exec(program);
-		// exec
 		free_parser_input(program);
 		free(tmp);
+		free(program->process);
 	}
 	free_program(program);
 	// system("leaks minishell");

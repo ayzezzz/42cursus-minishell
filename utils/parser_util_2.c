@@ -6,14 +6,13 @@
 /*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:54:27 by itulgar           #+#    #+#             */
-/*   Updated: 2024/10/12 17:54:54 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/10/19 13:08:37 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static char	*walk_to_quote_pipe(t_program *program, char *s, char c,
-		int redirect)
+static char	*walk_to_quote_pipe(t_program *program, char *s, char c)
 {
 	char	quote_type;
 
@@ -27,8 +26,6 @@ static char	*walk_to_quote_pipe(t_program *program, char *s, char c,
 	}
 	if (*s == c || *s == '\0')
 	{
-		if (*s && redirect)
-			s++;
 		if (*s)
 		{
 			s++;
@@ -39,15 +36,13 @@ static char	*walk_to_quote_pipe(t_program *program, char *s, char c,
 	return (s);
 }
 
-static char	*walk_to_pipe(t_program *program, char *s, char c, int redirect)
+static char	*walk_to_pipe(t_program *program, char *s, char c)
 {
 	program->control_p_split = 0;
 	while (*s && *s != c && (*s != '\'' && *s != '\"'))
 		s++;
 	if (*s == c || *s == '\0')
 	{
-		if (*s && redirect)
-			s++;
 		if (*s)
 		{
 			s++;
@@ -57,21 +52,20 @@ static char	*walk_to_pipe(t_program *program, char *s, char c, int redirect)
 	}
 	return (s);
 }
-
-char	*walk_string(t_program *program, char *s, char c, int redirect)
+char	*walk_string(t_program *program, char *s, char c)
 {
 	while (*s)
 	{
 		if (*s == '\'' || *s == '\"')
 		{
-			s = walk_to_quote_pipe(program, s, c, redirect);
+			s = walk_to_quote_pipe(program, s, c);
 
 			if (program->control_q_split)
 				break ;
 		}
 		else
 		{
-			s = walk_to_pipe(program, s, c, redirect);
+			s = walk_to_pipe(program, s, c);
 			if (program->control_p_split)
 				break ;
 		}

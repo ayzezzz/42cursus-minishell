@@ -3,97 +3,117 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zerrinayaz <zerrinayaz@student.42.fr>      +#+  +:+       +#+        */
+/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:23:50 by zayaz             #+#    #+#             */
-/*   Updated: 2024/10/14 17:26:32 by zerrinayaz       ###   ########.fr       */
+/*   Updated: 2024/10/29 17:48:33 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char *search_env(t_program *program, char *key)
+char	*search_env(char *key, t_list *envpx_lst)
 {
-	t_list *current;
-	char *env;
+	t_list	*current;
+	char	*envpx;
 
-	env = NULL;
-	current = program->envp_list;
-	while (current->key)
+	envpx = NULL;
+	current = envpx_lst;
+	while (current && current->key)
 	{
-		if (ft_strncmp(current->key, key, ft_strlen(current->key)) == 0)
+		if (zi_strcmp(current->key, key) == 0)
 		{
-			env = current->content;
-			break;
+			envpx = current->content;
+			break ;
 		}
 		current = current->next;
 	}
-	return (env);
+	return (envpx);
 }
-void search_set_env(t_program *program, char *key, char *content)
+void	search_set_env(t_program *program, char *key, char *content,
+		t_list *envpx_list)
 {
-	t_list *current;
+	t_list	*current;
 
-	current = program->envp_list;
+	current = envpx_list;
 	while (current)
 	{
-		if (ft_strncmp(current->key, key, ft_strlen(current->key)) == 0)
+		if (zi_strcmp(current->key, key) == 0)
 		{
 			program->export_flag = 1;
 			current->content = zi_strlcpy(current->content, content,
-										  ft_strlen(content));
-			return;
+					ft_strlen(content));
+			return ;
 		}
 		if (!current->next)
-			break;
+			break ;
 		current = current->next;
 	}
 	program->export_flag = 0;
 }
 
-static void update_env(t_program *program, char *cwd)
+static void	update_env(t_program *program, char *cwd)
 {
-	char *oldpwd;
+	char	*oldpwd;
+	char	*oldpwd_export;
 
-	oldpwd = search_env(program, "PWD");
-	search_set_env(program, "OLDPWD", oldpwd);
-	search_set_env(program, "PWD", cwd);
-	printf("cwd: %s \n", cwd);
+	oldpwd = search_env("PWD", program->envp_list);
+	oldpwd_export = search_env("PWD", program->export_list);
+	if (!oldpwd || !oldpwd_export)
+	{
+		search_set_env(program, "OLDPWD", "\"\"", program->envp_list);
+		search_set_env(program, "OLDPWD", "\"\"", program->export_list);
+	}
+	else
+	{
+		search_set_env(program, "OLDPWD", oldpwd, program->envp_list);
+		search_set_env(program, "PWD", cwd, program->envp_list);
+		search_set_env(program, "OLDPWD", oldpwd_export, program->export_list);
+		search_set_env(program, "PWD", cwd, program->export_list);
+	}
 }
 
-static void cd_path(char *cwd, char *cmd)
+static void	cd_path(t_program *program, char *cmd)
 {
-	char *path;
+	char	*path;
+	char	cwd[1024];
 
-	path = cmd[1];
+	path = cmd;
 	if (access(path, F_OK) == 0)
 	{
-		getcwd(cwd, sizeof(cwd));
-		chdir(path);
-		getcwd(cwd, sizeof(cwd));
+		if (chdir(path) == 0)
+		{
+			if (getcwd(cwd, sizeof(cwd)) != NULL)
+				update_env(program, cwd);
+		}
 	}
 	else
 		printf("cd: %s No such file or directory\n", path);
 }
 
-void cd(t_program *program, char **cmd)
+void	cd(t_program *program, char **cmd)
 {
-	char *home;
-	char cwd[1024];
+	char	*home;
+	char	cwd[1024];
 
-	if (cmd[1] == NULL || (ft_strncmp(cmd[1], "~", ft_strlen(cmd[1])) == 0))
+	if (cmd[1] == NULL || (zi_strcmp(cmd[1], "~") == 0))
 	{
-		home = search_env(program, "HOME");
-		chdir(home);
-		getcwd(cwd, sizeof(cwd));
+		home = search_env("HOME", program->envp_list);
+		if (home && chdir(home) == 0)
+			getcwd(cwd, sizeof(cwd));
 	}
-	else if (ft_strncmp(cmd[1], "..", ft_strlen(cmd[1])) == 0)
+	else if (zi_strcmp(cmd[1], "..") == 0)
 	{
-		getcwd(cwd, sizeof(cwd));
-		chdir("..");
-		getcwd(cwd, sizeof(cwd));
+		if (getcwd(cwd, sizeof(cwd)) != NULL)
+		{
+			if (chdir("..") == 0)
+				getcwd(cwd, sizeof(cwd));
+		}
 	}
 	else if (cmd[1])
-		cd_path(cwd, cmd[1]);
+	{
+		cd_path(program, cmd[1]);
+		return ;
+	}
 	update_env(program, cwd);
 }

@@ -6,7 +6,7 @@
 /*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 19:25:09 by zayaz             #+#    #+#             */
-/*   Updated: 2024/10/12 17:45:42 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/10/19 13:09:23 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*in_quote_string(char *s, char c)
 	return (s);
 }
 
-int	zi_count_string(char *s, char c,int redirect)
+int	zi_count_string(char *s, char c)
 {
 	int		count;
 	char	quote_type;
@@ -42,8 +42,6 @@ int	zi_count_string(char *s, char c,int redirect)
 		}
 		if (*s == c || *s == '\0')
 		{
-			if(redirect && *s)
-				s++      ;
 			count++;
 			if (*s)
 				s++;
@@ -87,7 +85,7 @@ static int	zi_count_char(char *s, char c)
 	return (i);
 }
 
-char	**zi_split(t_program *program, char *s, char c,int redirect)
+char	**zi_split(t_program *program, char *s, char c)
 {
 	int		word;
 	int		i;
@@ -98,7 +96,7 @@ char	**zi_split(t_program *program, char *s, char c,int redirect)
 	x = 0;
 	if (!s)
 		return (NULL);
-	word = zi_count_string(s, c,redirect);
+	word = zi_count_string(s, c);
 	s1 = ft_calloc(word + 1, sizeof(char *));
 	if (!s1)
 		return (NULL);
@@ -106,7 +104,7 @@ char	**zi_split(t_program *program, char *s, char c,int redirect)
 	{
 		i = zi_count_char(s, c);
 		s1[x++] = ft_substr(s, 0, i);
-		s = walk_string(program, s, c,redirect);
+		s = walk_string(program, s, c);
 	}
 	s1[x] = NULL;
 	return (s1);
